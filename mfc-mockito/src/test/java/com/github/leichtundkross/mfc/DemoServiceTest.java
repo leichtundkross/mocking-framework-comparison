@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -85,6 +86,18 @@ public class DemoServiceTest {
         service.save(entity);
 
         Mockito.verify(dao, Mockito.never()).load(ArgumentMatchers.any(DemoEntity.class));
+    }
+
+    @Test
+    public void save_validateCalledBeforeUpdate() {
+        DemoEntity entity = Mockito.mock(DemoEntity.class);
+
+        service.save(entity);
+
+        InOrder executionOrder = Mockito.inOrder(entity, dao);
+        executionOrder.verify(entity).validate();
+        executionOrder.verify(dao).update(entity);
+        executionOrder.verifyNoMoreInteractions();
     }
 
     @Test

@@ -11,6 +11,10 @@ public class DemoEntity {
         this.id = id;
     }
 
+    public void validate() throws IllegalArgumentException {
+        // TODO Auto-generated method stub
+    }
+
     public boolean isNew() {
         // TODO Auto-generated method stub
         return false;

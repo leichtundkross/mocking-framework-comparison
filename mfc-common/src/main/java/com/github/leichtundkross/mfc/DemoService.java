@@ -8,6 +8,7 @@ public class DemoService {
     private DemoDAO dao;
 
     public void save(DemoEntity entity) {
+        entity.validate();
         if (entity.isNew()) {
             dao.insert(entity);
         } else {
