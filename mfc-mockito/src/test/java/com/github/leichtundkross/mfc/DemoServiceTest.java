@@ -1,9 +1,12 @@
 package com.github.leichtundkross.mfc;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -82,5 +85,18 @@ public class DemoServiceTest {
         service.save(entity);
 
         Mockito.verify(dao, Mockito.never()).load(ArgumentMatchers.any(DemoEntity.class));
+    }
+
+    @Test
+    public void save_verifyCorrectId() {
+        ArgumentCaptor<DemoEntity> entityCaptor = ArgumentCaptor.forClass(DemoEntity.class);
+        Mockito.doNothing().when(dao).update(entityCaptor.capture());
+
+        final Long entityId = Long.valueOf(4711L);
+        DemoEntity entity = new DemoEntity(entityId);
+
+        service.save(entity);
+
+        assertEquals(entityId, entityCaptor.getValue().getId());
     }
 }
