@@ -8,6 +8,7 @@
 	<modules>
 		<module>mfc-common</module>
 		<module>mfc-mockito</module>
+		<module>mfc-jmockit</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
