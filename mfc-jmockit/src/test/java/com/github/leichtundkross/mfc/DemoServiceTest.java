@@ -26,10 +26,14 @@ public class DemoServiceTest {
 
     @Test
     public void save() {
-        DemoEntity entity = new DemoEntity();
+        // Record phase: expectations on mocks are recorded
+        // phase is empty for this test
 
+        // Replay phase: code under test is exercised
+        DemoEntity entity = new DemoEntity();
         service.save(entity);
 
+        // Verify phase: expectations on mocks are verified
         new Verifications() {
             {
                 dao.insert(entity); times = 0;
